@@ -2,3 +2,4 @@ venv
 .idea
 test.csv
 settings.py
+__pycache__
