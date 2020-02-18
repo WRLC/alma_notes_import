@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import csv
 import requests
 import sys
@@ -17,7 +19,7 @@ with open(sys.argv[1]) as csv_file:
         # Get item record from barcode via requests
         try:
             r = requests.get(ALMA_SERVER + '/almaws/v1/items', params={
-                'apikey': SCF_API_KEY,
+                'apikey': ALMA_API_KEY,
                 'item_barcode': barcode,
                 'format': 'json'
             })
@@ -56,7 +58,7 @@ with open(sys.argv[1]) as csv_file:
         # send full updated JSON item record via PUT request
         try:
             r = requests.put(ALMA_SERVER + putEndpoint, params={
-                'apikey': SCF_API_KEY
+                'apikey': ALMA_API_KEY
             }, data=json.dumps(itemRec), headers=headers)
 
             # Provide for reporting HTTP errors
