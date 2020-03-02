@@ -1,5 +1,5 @@
 venv
 .idea
-test.csv
+*.csv
 settings.py
 __pycache__
