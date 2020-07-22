@@ -27,10 +27,43 @@ with open(sys.argv[1]) as csv_file:
             # Provide for reporting HTTP errors
             r.raise_for_status()
 
-        except requests.exceptions.HTTPError as e:
+        except requests.exceptions.HTTPError as errh:
 
             # If HTTP error, inform user
-            print('Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ' not found.')
+            print('HTTP Error finding Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', errh)
+
+            # Bump the row number up before exiting
+            rowNumber = rowNumber + 1
+
+            # Stop processing this row
+            continue
+
+        except requests.exceptions.ConnectionError as errc:
+
+            # If connection error, inform user
+            print('Connection Error finding Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', errc)
+
+            # Bump the row number up before exiting
+            rowNumber = rowNumber + 1
+
+            # Stop processing this row
+            continue
+
+        except requests.exceptions.Timeout as errt:
+
+            # If timeout error, inform user
+            print('Timeout Error finding Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', errt)
+
+            # Bump the row number up before exiting
+            rowNumber = rowNumber + 1
+
+            # Stop processing this row
+            continue
+
+        except requests.exceptions.RequestException as err:
+
+            # If other error, inform user
+            print('Other Error finding Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', err)
 
             # Bump the row number up before exiting
             rowNumber = rowNumber + 1
@@ -64,10 +97,43 @@ with open(sys.argv[1]) as csv_file:
             # Provide for reporting HTTP errors
             r.raise_for_status()
 
-        except requests.exceptions.HTTPError as e:
+        except requests.exceptions.HTTPError as errh:
 
             # If HTTP error, inform user
-            print('Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ' could not be updated.')
+            print('HTTP Error updating Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', errh)
+
+            # Bump the row number up before exiting
+            rowNumber = rowNumber + 1
+
+            # Stop processing this row
+            continue
+
+        except requests.exceptions.ConnectionError as errc:
+
+            # If connection error, inform user
+            print('Connection Error updating Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', errc)
+
+            # Bump the row number up before exiting
+            rowNumber = rowNumber + 1
+
+            # Stop processing this row
+            continue
+
+        except requests.exceptions.Timeout as errt:
+
+            # If timeout error, inform user
+            print('Timeout Error updating Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', errt)
+
+            # Bump the row number up before exiting
+            rowNumber = rowNumber + 1
+
+            # Stop processing this row
+            continue
+
+        except requests.exceptions.RequestException as err:
+
+            # If other error, inform user
+            print('Other Error updating Barcode ' + str(barcode) + ' in row ' + str(rowNumber) + ':', err)
 
             # Bump the row number up before exiting
             rowNumber = rowNumber + 1
